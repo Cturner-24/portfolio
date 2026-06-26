@@ -166,7 +166,7 @@ function GitHubStrip() {
   const langMap: Record<string, number> = {}
   ownRepos.forEach(r => { if (r.language) langMap[r.language] = (langMap[r.language] || 0) + 1 })
   const topLangs = Object.entries(langMap).sort((a, b) => b[1] - a[1]).slice(0, 4)
-  const topRepos = [...ownRepos].sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()).slice(0, 4)
+  const topRepos = [...ownRepos].sort((a, b) => b.stargazers_count - a.stargazers_count || new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()).slice(0, 3)
 
   return (
     <div style={{ background: '#000c20', borderTop: '2px solid #0a1a40' }}>
@@ -217,8 +217,30 @@ function GitHubStrip() {
         </div>
       </div>
 
-      {/* Repo rows */}
+      {/* Repo rows — BlackDog pinned first, then top 3 from GitHub */}
       <div className="grid grid-cols-4" style={{ borderBottom: '1px solid #0a1a40' }}>
+        {/* Pinned: BlackDog Enforcer */}
+        <a
+          href="https://github.com/rylet23/BlackDog_Enforcer"
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-col gap-0.5 px-3 py-2 hover:bg-yellow-950/20 transition-colors"
+          style={{ borderRight: '1px solid #0a1a40', background: 'rgba(250,204,21,0.04)' }}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="rounded-full shrink-0" style={{ width: 7, height: 7, background: LANG_COLORS['Python'], display: 'inline-block' }} />
+            <span className="font-black text-yellow-400 truncate" style={{ fontSize: 10 }}>BlackDog_Enforcer</span>
+            <span
+              className="ml-auto shrink-0 font-black font-display"
+              style={{ fontSize: 8, color: '#001030', background: '#facc15', borderRadius: 2, padding: '1px 4px' }}
+            >
+              PINNED
+            </span>
+          </div>
+          <p className="text-gray-400 truncate" style={{ fontSize: 9 }}>Autonomous wildlife deterrence · Python / C++</p>
+          <span style={{ fontSize: 9, color: '#3572A5' }}>ERAU Senior Capstone · 2026</span>
+        </a>
+        {/* Live repos */}
         {topRepos.map((repo, i) => (
           <a
             key={repo.name}
@@ -226,21 +248,16 @@ function GitHubStrip() {
             target="_blank"
             rel="noreferrer"
             className="flex flex-col gap-0.5 px-3 py-2 hover:bg-blue-950/40 transition-colors"
-            style={{ borderLeft: i > 0 ? '1px solid #0a1a40' : undefined }}
+            style={{ borderLeft: i > 0 ? '1px solid #0a1a40' : '1px solid #0a1a40' }}
           >
             <div className="flex items-center gap-1.5">
               {repo.language && (
-                <span
-                  className="rounded-full shrink-0"
-                  style={{ width: 7, height: 7, background: LANG_COLORS[repo.language] ?? '#94a3b8', display: 'inline-block' }}
-                />
+                <span className="rounded-full shrink-0" style={{ width: 7, height: 7, background: LANG_COLORS[repo.language] ?? '#94a3b8', display: 'inline-block' }} />
               )}
               <span className="font-black text-yellow-400 truncate" style={{ fontSize: 10 }}>{repo.name}</span>
               <span className="text-yellow-600 ml-auto shrink-0" style={{ fontSize: 9 }}>★{repo.stargazers_count}</span>
             </div>
-            <p className="text-gray-500 truncate" style={{ fontSize: 9 }}>
-              {repo.description ?? repo.language ?? '—'}
-            </p>
+            <p className="text-gray-500 truncate" style={{ fontSize: 9 }}>{repo.description ?? repo.language ?? '—'}</p>
             <span className="text-blue-600" style={{ fontSize: 9 }}>{timeAgo(repo.updated_at)}</span>
           </a>
         ))}
