@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-01T20:23:54Z",
+  "title": "Design System: Cole Turner Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "scoreboard-gold": { "role": "primary", "displayName": "Scoreboard Gold", "canonical": "oklch(85% 0.17 95)", "tonalRamp": ["#3d2f02", "#5c4604", "#7d5f06", "#a17b09", "#c99c0d", "#facc15", "#fde36e", "#fef3c0"] },
+      "bulb-amber": { "role": "primary-emphasis", "displayName": "Bulb Amber", "canonical": "oklch(83% 0.16 75)", "tonalRamp": ["#3d2a03", "#5c3f05", "#7d5507", "#a1710b", "#c58f10", "#fbbf24", "#fdd680", "#feecc0"] },
+      "erau-blue": { "role": "secondary", "displayName": "ERAU Blue", "canonical": "oklch(29% 0.12 260)", "tonalRamp": ["#000a1c", "#001133", "#00184c", "#002066", "#002878", "#003087", "#3e5ba8", "#8aa4d1"] },
+      "stadium-navy-deep": { "role": "neutral", "displayName": "Stadium Night Navy", "canonical": "oklch(11% 0.03 260)", "tonalRamp": ["#000000", "#000104", "#000414", "#00071f", "#000a2c", "#001030", "#0d2a5e", "#4a6fa5"] },
+      "stadium-navy": { "role": "neutral", "displayName": "Cabinet Navy", "canonical": "oklch(15% 0.05 260)", "tonalRamp": ["#000000", "#000414", "#000a2c", "#001030", "#001540", "#001840", "#0a1a40", "#2a4a80"] },
+      "navy-ink": { "role": "neutral-emphasis", "displayName": "Navy Ink", "canonical": "oklch(32% 0.13 265)", "tonalRamp": ["#050a1f", "#0b1638", "#122352", "#18306c", "#1e3a8a", "#2f4fa8", "#5674c0", "#8ba3d8"] },
+      "scoreboard-chrome": { "role": "neutral", "displayName": "Scoreboard Chrome", "canonical": "oklch(80% 0.005 260)", "tonalRamp": ["#3d3d3f", "#59595c", "#717174", "#8c8c8f", "#a1a1a4", "#c4c4c8", "#d4d4d8", "#e2e2e6"] },
+      "dugout-gray": { "role": "muted", "displayName": "Dugout Gray", "canonical": "oklch(70% 0.03 255)", "tonalRamp": ["#2a3038", "#3f4750", "#565f6a", "#6e7885", "#7f8a99", "#94a3b8", "#b3bfd0", "#d4dce6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Marquee Display", "purpose": "The one hero moment — the header banner's 'COLE TURNER' name plate." },
+      "headline": { "displayName": "Section Headline", "purpose": "About panel name treatment and equivalent section-defining titles." },
+      "title": { "displayName": "Content Title", "purpose": "Card and list-item titles (project names, job titles, degree). Plain sans, not Oswald — content, not chrome." },
+      "body": { "displayName": "Prose Body", "purpose": "Bios, descriptions, bullets. The only place long-form reading happens." },
+      "label": { "displayName": "Scoreboard Label", "purpose": "Stat labels, panel labels, section eyebrows. Oswald for static text, JetBrains Mono when paired with a numeric value." }
+    },
+    "shadows": [
+      { "name": "cabinet-shadow", "value": "0 16px 64px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.15)", "purpose": "The single true elevation shadow, applied once to the outer scoreboard frame." },
+      { "name": "active-panel-glow", "value": "inset 0 0 0 2px #facc15, 0 0 16px rgba(250,204,21,0.15)", "purpose": "Marks the currently active side panel — inset gold ring plus soft external glow, simulating a lit bulb." },
+      { "name": "inactive-panel-inset", "value": "inset 0 0 0 1px rgba(255,255,255,0.05)", "purpose": "Near-invisible inset seam on inactive side panels." },
+      { "name": "display-vignette", "value": "inset 0 0 40px rgba(0,0,0,0.5)", "purpose": "Subtle inward darkening at the edges of the center display screen." }
+    ],
+    "motion": [
+      { "name": "duration-fast", "value": "150ms", "purpose": "Default transition duration for panel state changes, hovers, and color/opacity shifts." },
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default easing for all transitions (Tailwind's default transition-timing-function)." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Gold-filled primary action (e.g. GitHub / email CTA on About and Contact).",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">GitHub</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #facc15; color: #1e3a8a; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; padding: 10px 12px; border-radius: 4px; border: none; transition: opacity 150ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { opacity: 0.9; } .ds-btn-primary:focus-visible { outline: 2px solid #fef3c0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Outline Button",
+      "kind": "button",
+      "refersTo": "button-secondary-outline",
+      "description": "Gold-outline ghost action sitting alongside a primary gold button (e.g. LinkedIn CTA).",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: transparent; color: #facc15; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; padding: 9px 11px; border-radius: 4px; border: 2px solid #facc15; transition: background-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-outline:hover { background: rgba(250,204,21,0.1); } .ds-btn-outline:focus-visible { outline: 2px solid #fef3c0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Side Panel (Active)",
+      "kind": "nav",
+      "refersTo": "side-panel-active",
+      "description": "The currently active scoreboard side-panel button — gold icon/label, inset ring glow, navy gradient fill.",
+      "html": "<button class=\"ds-side-panel ds-side-panel--active\"><svg class=\"ds-side-panel__icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"24\" height=\"24\"><path d=\"M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z\"/></svg><span class=\"ds-side-panel__label\">About Me</span></button>",
+      "css": ".ds-side-panel { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 12px 8px; border: none; cursor: pointer; transition: all 150ms cubic-bezier(0.4,0,0.2,1); font-family: 'Oswald', system-ui, sans-serif; } .ds-side-panel--active { background: linear-gradient(135deg, #002a6e 0%, #001f55 100%); box-shadow: inset 0 0 0 2px #facc15, 0 0 16px rgba(250,204,21,0.15); color: #facc15; } .ds-side-panel__icon { color: #facc15; } .ds-side-panel__label { font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; font-size: 9px; }"
+    },
+    {
+      "name": "Side Panel (Inactive)",
+      "kind": "nav",
+      "refersTo": "side-panel-inactive",
+      "description": "Resting-state scoreboard side-panel button — muted slate icon/label, near-invisible inset seam.",
+      "html": "<button class=\"ds-side-panel ds-side-panel--inactive\"><svg class=\"ds-side-panel__icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" width=\"24\" height=\"24\"><polyline points=\"16 18 22 12 16 6\"/><polyline points=\"8 6 2 12 8 18\"/></svg><span class=\"ds-side-panel__label\">Projects</span></button>",
+      "css": ".ds-side-panel--inactive { background: linear-gradient(135deg, #001840 0%, #001030 100%); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); color: #94a3b8; }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card-default",
+      "description": "Flat, bordered content card used for projects, experience, and education entries.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card__title\">Autonomous Wildlife Deterrence</h3><p class=\"ds-card__subtitle\">BlackDog Enforcer — ERAU Senior Capstone</p><p class=\"ds-card__body\">Autonomous RC vehicle with LiDAR &amp; CNN-powered stereo camera to detect and deter wildlife from airport runways.</p></div>",
+      "css": ".ds-card { border-radius: 4px; padding: 12px; border: 1px solid #0d2a5e; background: rgba(0,8,32,0.7); } .ds-card__title { font-weight: 900; color: #facc15; font-size: 13px; line-height: 1.2; margin-bottom: 2px; } .ds-card__subtitle { color: #60a5fa; text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; margin-bottom: 6px; } .ds-card__body { color: #9ca3af; font-size: 11px; line-height: 1.4; }"
+    },
+    {
+      "name": "Tech Chip",
+      "kind": "chip",
+      "refersTo": "chip-tag",
+      "description": "Small mono tag used for tech stacks and skills — navy-tinted at rest, language-color-tinted for language chips.",
+      "html": "<span class=\"ds-chip\">TypeScript</span>",
+      "css": ".ds-chip { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #93c5fd; background: rgba(30,58,138,0.3); border: 1px solid rgba(30,58,138,0.5); border-radius: 2px; padding: 1px 5px; }"
+    },
+    {
+      "name": "Stat Tile",
+      "kind": "custom",
+      "refersTo": "stat-tile",
+      "description": "Large glowing white number with an uppercase label, used in the stats bar (PROJ / LANG / YRS EXP) and the GitHub strip.",
+      "html": "<div class=\"ds-stat-tile\"><span class=\"ds-stat-tile__label\">PROJ</span><span class=\"ds-stat-tile__value\">3</span></div>",
+      "css": ".ds-stat-tile { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 0; } .ds-stat-tile__label { font-family: 'Oswald', system-ui, sans-serif; font-weight: 900; color: #6b7280; text-transform: uppercase; letter-spacing: 0.15em; font-size: 9px; } .ds-stat-tile__value { font-family: 'Oswald', system-ui, sans-serif; font-weight: 900; color: #ffffff; font-size: 26px; line-height: 1; text-shadow: 0 0 10px rgba(255,255,255,0.2); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Home Scoreboard Under the Lights",
+    "overview": "The whole interface is one object: a well-kept, physical scoreboard sitting on a field at night. Everything reads as that object, not as a web app — a thick chrome cabinet, hairline dividers between panels, glowing gold bulbs marking what's active, a mono-digit score grid, and a live GitHub activity strip standing in for the day's box score. The navy that dominates every surface is the night sky and the field under stadium lights; the gold is the light spilling off the bulbs. Content — About, Projects, Skills, Experience, Education, Contact — is framed as innings on a scorecard, not sections on a page.\n\nThe personality underneath the metaphor is approachable, curious, and hardworking, not aggressively competitive. The scoreboard supplies discipline and precision in the structure, while the voice stays warm and grounded. This system explicitly rejects the generic AI/template developer-portfolio look: no identical icon-card grids, no gradient-text hero, no stock icon rows, no uppercase eyebrow kickers stacked over every section, no hero-metric-with-gradient-accent template.",
+    "keyCharacteristics": [
+      "One object, not a page: thick chrome frame, hairline navy dividers, physical drop shadow — never a floating card grid.",
+      "Gold bulbs mark 'active' everywhere (side panels, score digits, CTAs); navy is the resting/inactive state.",
+      "Oswald in tight, wide-tracked uppercase carries all scoreboard-native chrome; plain system sans carries actual prose.",
+      "Mono (JetBrains Mono) is reserved for anything that reads as data — scores, stats, tech tags, timestamps.",
+      "Sharp cabinet, rounded internals: the outer frame has zero radius; cards, chips, and buttons inside it use small, consistent radii."
+    ],
+    "rules": [
+      { "name": "The One Bulb Rule", "body": "Scoreboard Gold means 'active' or 'primary action' and nothing else. It never appears as decoration or fills a large surface at rest.", "section": "colors" },
+      { "name": "The Navy Field Rule", "body": "Every background from the display screen out to the cabinet body is a step in the same navy family. Don't introduce a new hue for a new surface.", "section": "colors" },
+      { "name": "The Chrome vs. Content Rule", "body": "Fixed scoreboard furniture (labels, panel names, stat headers) is Oswald and uppercase. Content specific to Cole (bio, descriptions, job titles) is plain sans.", "section": "typography" },
+      { "name": "The Physical Object Rule", "body": "Only the outermost cabinet frame casts a real drop shadow. Everything inside it is flat, separated by hairlines and insets, never a floating-card shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Scoreboard Gold confined to active/primary elements — if more than one thing glows gold at once, something is probably not actually 'active.'",
+      "Do use Oswald + uppercase + wide tracking for scoreboard chrome; use plain system sans for Cole's own words.",
+      "Do keep the outer cabinet frame's shadow as the only true drop shadow in the system; use inset rings/glows for internal 'active' states instead.",
+      "Do keep the sharp, zero-radius cabinet exterior contrasted against small (2–4px) rounded corners on everything inside it.",
+      "Do let the GitHub Activity Strip carry real, live data — it's the proof-of-work element, not a decoration."
+    ],
+    "donts": [
+      "Don't add a generic AI/template developer-portfolio look: no identical icon-topped card grids, no gradient hero text, no stock icon rows, no uppercase eyebrow kicker stacked above every section, no hero-metric-with-gradient-accent block.",
+      "Don't give more than one element the gold treatment at the same time in the same view.",
+      "Don't add soft, floating card-shadow elevation anywhere inside the cabinet.",
+      "Don't round the outer cabinet frame's corners, and don't sharpen the internal cards/chips/buttons to match it.",
+      "Don't let the tone drift toward a hard-edged 'competitive athlete' persona in copy — the voice stays approachable, curious, and hardworking."
+    ]
+  }
+}

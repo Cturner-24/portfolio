@@ -171,9 +171,9 @@ function GitHubStrip() {
   return (
     <div style={{ background: '#000c20', borderTop: '2px solid #0a1a40' }}>
       {/* Top stat bar */}
-      <div className="flex items-center gap-0" style={{ borderBottom: '1px solid #0a1a40' }}>
+      <div className="flex flex-wrap items-stretch gap-0" style={{ borderBottom: '1px solid #0a1a40' }}>
         {/* GitHub identity */}
-        <div className="flex items-center gap-2 px-3 py-2" style={{ borderRight: '1px solid #0a1a40', minWidth: 170 }}>
+        <div className="flex items-center gap-2 px-3 py-2 border-r" style={{ borderColor: '#0a1a40', minWidth: 170 }}>
           <svg viewBox="0 0 24 24" fill="#facc15" className="shrink-0" style={{ width: 16, height: 16 }}>
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
           </svg>
@@ -188,13 +188,13 @@ function GitHubStrip() {
           { label: 'STARS', value: totalStars },
           { label: 'FOLLOWERS', value: user?.followers ?? '–' },
         ].map((s, i) => (
-          <div key={i} className="flex items-center gap-1.5 px-3 py-2" style={{ borderRight: '1px solid #0a1a40' }}>
+          <div key={i} className="flex items-center gap-1.5 px-3 py-2 border-r" style={{ borderColor: '#0a1a40' }}>
             <span className="font-black text-gray-500 uppercase font-display" style={{ fontSize: 8 }}>{s.label}</span>
             <span className="font-black text-white font-display" style={{ fontSize: 18 }}>{s.value}</span>
           </div>
         ))}
         {/* Top languages */}
-        <div className="flex items-center gap-2 px-3 py-2 flex-1">
+        <div className="flex items-center gap-2 px-3 py-2 flex-1 basis-full sm:basis-auto">
           <span className="font-black text-gray-500 uppercase font-display shrink-0" style={{ fontSize: 8 }}>TOP LANGS</span>
           <div className="flex gap-1.5 flex-wrap">
             {topLangs.map(([lang]) => (
@@ -218,14 +218,14 @@ function GitHubStrip() {
       </div>
 
       {/* Repo rows — BlackDog pinned first, then top 3 from GitHub */}
-      <div className="grid grid-cols-4" style={{ borderBottom: '1px solid #0a1a40' }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4" style={{ borderBottom: '1px solid #0a1a40' }}>
         {/* Pinned: BlackDog Enforcer */}
         <a
           href="https://github.com/rylet23/BlackDog_Enforcer"
           target="_blank"
           rel="noreferrer"
-          className="flex flex-col gap-0.5 px-3 py-2 hover:bg-yellow-950/20 transition-colors"
-          style={{ borderRight: '1px solid #0a1a40', background: 'rgba(250,204,21,0.04)' }}
+          className="flex flex-col gap-0.5 px-3 py-2 border-b sm:border-r md:border-b-0 hover:bg-yellow-950/20 transition-colors"
+          style={{ borderColor: '#0a1a40', background: 'rgba(250,204,21,0.04)' }}
         >
           <div className="flex items-center gap-1.5">
             <span className="rounded-full shrink-0" style={{ width: 7, height: 7, background: LANG_COLORS['Python'], display: 'inline-block' }} />
@@ -241,14 +241,14 @@ function GitHubStrip() {
           <span style={{ fontSize: 9, color: '#3572A5' }}>ERAU Senior Capstone · 2026</span>
         </a>
         {/* Live repos */}
-        {topRepos.map((repo, i) => (
+        {topRepos.map((repo) => (
           <a
             key={repo.name}
             href={repo.html_url}
             target="_blank"
             rel="noreferrer"
-            className="flex flex-col gap-0.5 px-3 py-2 hover:bg-blue-950/40 transition-colors"
-            style={{ borderLeft: i > 0 ? '1px solid #0a1a40' : '1px solid #0a1a40' }}
+            className="flex flex-col gap-0.5 px-3 py-2 border-b sm:border-r md:border-b-0 last:border-b-0 hover:bg-blue-950/40 transition-colors"
+            style={{ borderColor: '#0a1a40' }}
           >
             <div className="flex items-center gap-1.5">
               {repo.language && (
@@ -267,12 +267,12 @@ function GitHubStrip() {
 }
 
 // ── Side panel ────────────────────────────────────────────────────────────────
-function SidePanel({ id, label, active, onClick }: { id: Panel; label: string[]; active: boolean; onClick: () => void }) {
+function SidePanel({ id, label, active, onClick, compact }: { id: Panel; label: string[]; active: boolean; onClick: () => void; compact?: boolean }) {
   const Icon = PANEL_ICONS[id]
   return (
     <button
       onClick={onClick}
-      className="w-full h-full flex flex-col items-center justify-center gap-1.5 px-2 py-3 transition-all duration-150 cursor-pointer select-none"
+      className={`w-full h-full flex flex-col items-center justify-center gap-1.5 transition-all duration-150 cursor-pointer select-none ${compact ? 'px-1 py-2.5 min-h-11' : 'px-2 py-3'}`}
       style={{
         background: active
           ? 'linear-gradient(135deg, #002a6e 0%, #001f55 100%)'
@@ -282,7 +282,7 @@ function SidePanel({ id, label, active, onClick }: { id: Panel; label: string[];
           : 'inset 0 0 0 1px rgba(255,255,255,0.05)',
       }}
     >
-      <span style={{ color: active ? '#facc15' : '#4a6fa5' }}>
+      <span style={{ color: active ? '#facc15' : '#4a6fa5' }} className={compact ? '[&_svg]:w-5 [&_svg]:h-5' : undefined}>
         <Icon />
       </span>
       <div className="text-center leading-tight">
@@ -290,7 +290,7 @@ function SidePanel({ id, label, active, onClick }: { id: Panel; label: string[];
           <span
             key={i}
             className="block font-black tracking-widest uppercase font-display"
-            style={{ fontSize: 9, color: active ? '#facc15' : '#94a3b8' }}
+            style={{ fontSize: compact ? 8 : 9, color: active ? '#facc15' : '#94a3b8' }}
           >
             {line}
           </span>
@@ -303,19 +303,20 @@ function SidePanel({ id, label, active, onClick }: { id: Panel; label: string[];
 // ── Section content ───────────────────────────────────────────────────────────
 function About() {
   return (
-    <div className="relative w-full h-full overflow-hidden flex">
-      {/* Left: photo */}
-      <div className="relative h-full shrink-0" style={{ width: '45%' }}>
+    <div className="relative w-full md:h-full flex flex-col md:flex-row">
+      {/* Photo: full-bleed strip on top for mobile, 45% column on the left from md up */}
+      <div className="relative shrink-0 h-24 md:h-full w-full md:w-[45%]">
         <img
           src={aboutPhoto}
           alt="Cole Turner"
           className="w-full h-full object-cover"
           style={{ objectPosition: 'center 15%' }}
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #000414 100%)' }} />
+        <div className="absolute inset-0 md:hidden" style={{ background: 'linear-gradient(to bottom, transparent 40%, #000414 100%)' }} />
+        <div className="hidden md:block absolute inset-0" style={{ background: 'linear-gradient(to right, transparent 60%, #000414 100%)' }} />
       </div>
-      {/* Right: bio */}
-      <div className="flex flex-col justify-center px-5 py-4 flex-1">
+      {/* Bio: normal document flow on mobile (page scrolls); vertically centered + independently scrollable inside the fixed display window from md up */}
+      <div className="flex flex-col px-4 md:px-5 py-3 md:py-4 flex-1 md:min-h-0 md:overflow-y-auto md:justify-center">
         <p className="font-black text-yellow-400 tracking-widest uppercase font-display mb-1" style={{ fontSize: 9 }}>
           #24 · ERAU Eagles · Class of 2026
         </p>
@@ -347,7 +348,7 @@ function About() {
 
 function Projects() {
   return (
-    <div className="h-full overflow-y-auto p-3 flex flex-col gap-2.5">
+    <div className="md:h-full md:overflow-y-auto p-3 flex flex-col gap-2.5">
       {PROJECTS.map((p) => (
         <div key={p.name} className="rounded p-3" style={{ border: '1px solid #0d2a5e', background: 'rgba(0,8,32,0.7)' }}>
           <div className="flex justify-between items-start gap-2 mb-1">
@@ -389,7 +390,7 @@ function Projects() {
 
 function Skills() {
   return (
-    <div className="h-full overflow-y-auto p-3 grid grid-cols-2 gap-x-4 gap-y-3 content-start">
+    <div className="md:h-full md:overflow-y-auto p-3 grid grid-cols-2 gap-x-4 gap-y-3 content-start">
       {SKILL_GROUPS.map(g => (
         <div key={g.label}>
           <h3 className="font-black text-yellow-400 uppercase tracking-widest mb-1.5 font-display" style={{ fontSize: 9 }}>{g.label}</h3>
@@ -409,7 +410,7 @@ function Skills() {
 
 function Experience() {
   return (
-    <div className="h-full overflow-y-auto p-3">
+    <div className="md:h-full md:overflow-y-auto p-3">
       <div className="rounded p-3" style={{ border: '1px solid #0d2a5e', background: 'rgba(0,8,32,0.7)' }}>
         <div className="flex justify-between items-start gap-2 mb-2">
           <div>
@@ -437,7 +438,7 @@ function Experience() {
 
 function Education() {
   return (
-    <div className="h-full p-3 flex flex-col gap-2.5">
+    <div className="md:h-full p-3 flex flex-col gap-2.5">
       <div className="rounded p-3" style={{ border: '1px solid rgba(250,204,21,0.3)', background: 'rgba(0,8,32,0.7)' }}>
         <h3 className="font-black text-yellow-400 mb-0.5" style={{ fontSize: 14 }}>B.S. Computer Science</h3>
         <p className="font-bold text-white" style={{ fontSize: 12 }}>Embry-Riddle Aeronautical University</p>
@@ -463,7 +464,7 @@ function Education() {
 
 function Contact() {
   return (
-    <div className="h-full flex flex-col items-center justify-center gap-4 px-6">
+    <div className="md:h-full flex flex-col items-center justify-center gap-4 px-6 py-4 md:py-0">
       <div className="text-center">
         <p className="font-black text-yellow-400 uppercase tracking-widest font-display mb-1" style={{ fontSize: 12 }}>Ready to Connect</p>
         <p className="text-gray-400 max-w-xs" style={{ fontSize: 11 }}>Actively looking for full-time software engineering roles. Inbox is open.</p>
@@ -508,43 +509,54 @@ function CenterContent({ panel }: { panel: Panel }) {
 // ── Root ──────────────────────────────────────────────────────────────────────
 const PANEL_W = 112
 
+const ALL_PANELS = [...LEFT_PANELS, ...RIGHT_PANELS]
+
 export default function App() {
   const [active, setActive] = useState<Panel>('about')
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center py-8 px-4 relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center py-4 sm:py-8 px-2 sm:px-4 relative overflow-hidden"
       style={{ backgroundImage: `url(${fieldBg})`, backgroundSize: 'cover', backgroundPosition: 'center 40%' }}
     >
       <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.35)' }} />
 
       <div className="relative w-full" style={{ maxWidth: 940 }}>
         {/* Outer frame */}
-        <div style={{ border: '5px solid #c4c4c8', boxShadow: '0 16px 64px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.15)', background: '#001030' }}>
+        <div className="border-[3px] md:border-[5px]" style={{ borderColor: '#c4c4c8', boxShadow: '0 16px 64px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.15)', background: '#001030' }}>
 
           {/* Header banner */}
-          <div className="flex items-center justify-between px-5 py-2.5" style={{ background: 'white', borderBottom: '4px solid #e2e2e6' }}>
-            <div className="flex flex-col" style={{ width: PANEL_W }}>
+          <div className="flex items-center justify-between gap-2 px-3 sm:px-5 py-2 sm:py-2.5" style={{ background: 'white', borderBottom: '4px solid #e2e2e6' }}>
+            <div className="hidden sm:flex flex-col shrink-0" style={{ width: PANEL_W }}>
               <p className="font-black text-[#003087] tracking-widest uppercase font-display" style={{ fontSize: 11 }}>Embry-Riddle</p>
               <p className="text-[#003087] tracking-widest uppercase" style={{ fontSize: 8, opacity: 0.6 }}>Aeronautical University</p>
             </div>
-            <div className="flex-1 text-center">
-              <h1 className="font-black text-[#003087] tracking-tight uppercase font-display leading-none" style={{ fontSize: 32 }}>COLE TURNER</h1>
+            <div className="flex-1 min-w-0 text-center">
+              <h1 className="font-black text-[#003087] tracking-tight uppercase font-display leading-none" style={{ fontSize: 'clamp(20px, 7vw, 32px)' }}>COLE TURNER</h1>
               <p className="font-bold text-[#003087] tracking-[0.2em] uppercase mt-0.5" style={{ fontSize: 10, opacity: 0.65 }}>Software Engineer · #24</p>
             </div>
-            <div className="flex flex-col items-center gap-0.5" style={{ width: PANEL_W }}>
-              <div className="overflow-hidden flex items-center justify-center" style={{ width: 76, height: 76, border: '3px solid #003087', background: '#003087' }}>
+            <div className="flex flex-col items-center gap-0.5 shrink-0" style={{ width: 56 }}>
+              <div className="overflow-hidden flex items-center justify-center" style={{ width: 44, height: 44, border: '3px solid #003087', background: '#003087' }}>
                 <img src={erauLogo} alt="ERAU" className="w-full h-full object-contain" style={{ padding: 4 }} />
               </div>
-              <span className="font-black text-[#003087] tracking-widest font-display" style={{ fontSize: 10 }}>ERAU</span>
+              <span className="font-black text-[#003087] tracking-widest font-display" style={{ fontSize: 9 }}>ERAU</span>
             </div>
           </div>
 
           {/* Body */}
-          <div className="flex" style={{ borderTop: '2px solid #0a1a40' }}>
+          <div className="flex flex-col md:flex-row" style={{ borderTop: '2px solid #0a1a40' }}>
 
-            {/* Left panels */}
-            <div className="flex flex-col" style={{ width: PANEL_W, borderRight: '2px solid #0a1a40' }}>
+            {/* Mobile/tablet tab strip — replaces flanking side panels below md */}
+            <div className="grid grid-cols-3 md:hidden" style={{ borderBottom: '2px solid #0a1a40' }}>
+              {ALL_PANELS.map((p, i) => (
+                <div key={p.id} style={{ borderLeft: i % 3 > 0 ? '1px solid #0a1a40' : undefined, borderTop: i >= 3 ? '1px solid #0a1a40' : undefined }}>
+                  <SidePanel id={p.id} label={p.label} active={active === p.id} onClick={() => setActive(p.id)} compact />
+                </div>
+              ))}
+            </div>
+
+            {/* Left panels — desktop only */}
+            <div className="hidden md:flex flex-col" style={{ width: PANEL_W, borderRight: '2px solid #0a1a40' }}>
               {LEFT_PANELS.map((p, i) => (
                 <div key={p.id} className="flex-1" style={{ borderTop: i > 0 ? '2px solid #0a1a40' : undefined }}>
                   <SidePanel id={p.id} label={p.label} active={active === p.id} onClick={() => setActive(p.id)} />
@@ -555,7 +567,7 @@ export default function App() {
             {/* Center */}
             <div className="flex-1 flex flex-col min-w-0">
               {/* Display */}
-              <div className="relative" style={{ height: 305, background: '#000414' }}>
+              <div className="relative md:h-[305px]" style={{ background: '#000414' }}>
                 <CenterContent panel={active} />
                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)' }} />
               </div>
@@ -567,7 +579,7 @@ export default function App() {
                   { label: 'LANG', value: '7' },
                   { label: 'YRS EXP', value: '2' },
                 ].map((stat, i) => (
-                  <div key={i} className="flex-1 flex items-center justify-center gap-2 py-2"
+                  <div key={i} className="flex-1 flex items-center justify-center gap-1 sm:gap-2 py-2"
                     style={{ borderLeft: i > 0 ? '2px solid #0a1a40' : undefined }}>
                     <span className="font-black text-gray-500 uppercase tracking-widest font-display" style={{ fontSize: 9 }}>{stat.label}</span>
                     <span className="font-black text-white font-display leading-none" style={{ fontSize: 26, textShadow: '0 0 10px rgba(255,255,255,0.2)' }}>{stat.value}</span>
@@ -575,50 +587,52 @@ export default function App() {
                 ))}
               </div>
 
-              {/* Score grid */}
-              <div style={{ background: '#000c20' }}>
-                <div className="flex" style={{ borderBottom: '1px solid #0a1a40' }}>
-                  <div style={{ width: 86, borderRight: '1px solid #0a1a40' }} />
-                  {['22','23','24','25','26','–','–','–','–'].map((y, i) => (
-                    <div key={i} className="flex-1 text-center py-1 font-black text-yellow-500 font-display" style={{ fontSize: 9, borderRight: '1px solid rgba(10,26,64,0.6)' }}>{y}</div>
-                  ))}
-                  {['R','H','E'].map(h => (
-                    <div key={h} className="text-center py-1 font-black text-yellow-500 font-display" style={{ fontSize: 9, width: 22, borderLeft: '1px solid #0a1a40' }}>{h}</div>
-                  ))}
-                </div>
-                {[
-                  { label: 'EDUCATION', scores: ['1','1','1','1','1','–','–','–','–'], rhe: ['5','0','0'] },
-                  { label: 'CAREER',    scores: ['0','1','1','⚾','–','–','–','–','–'], rhe: ['2','7','0'] },
-                ].map((row, ri) => (
-                  <div key={row.label} className="flex" style={{ borderTop: ri > 0 ? '1px solid rgba(10,26,64,0.5)' : undefined }}>
-                    <div className="py-1 px-1 font-black text-gray-500 font-display flex items-center" style={{ fontSize: 8, width: 86, borderRight: '1px solid #0a1a40' }}>{row.label}</div>
-                    {row.scores.map((s, i) => {
-                      const isBaseball = s === '⚾'
-                      const isActive = !isBaseball && s !== '–' && s !== '0'
-                      return (
-                        <div key={i} className="flex-1 text-center py-1 font-mono font-bold"
-                          style={{
-                            fontSize: isBaseball ? 13 : 11,
-                            borderRight: '1px solid rgba(10,26,64,0.4)',
-                            color: isBaseball ? '#94a3b8' : isActive ? '#fbbf24' : 'rgba(255,255,255,0.7)',
-                            textShadow: isActive ? '0 0 8px rgba(251,191,36,0.5)' : 'none',
-                          }}
-                          title={isBaseball ? 'Summer Baseball · Virginia (2025)' : undefined}
-                        >
-                          {s}
-                        </div>
-                      )
-                    })}
-                    {row.rhe.map((v, i) => (
-                      <div key={i} className="text-center py-1 font-mono font-bold text-white" style={{ fontSize: 11, width: 22, borderLeft: '1px solid #0a1a40' }}>{v}</div>
+              {/* Score grid — scrolls horizontally below the width it needs, rather than squeezing illegibly */}
+              <div className="overflow-x-auto" style={{ background: '#000c20' }}>
+                <div style={{ minWidth: 460 }}>
+                  <div className="flex" style={{ borderBottom: '1px solid #0a1a40' }}>
+                    <div style={{ width: 86, borderRight: '1px solid #0a1a40' }} />
+                    {['22','23','24','25','26','–','–','–','–'].map((y, i) => (
+                      <div key={i} className="flex-1 text-center py-1 font-black text-yellow-500 font-display" style={{ fontSize: 9, borderRight: '1px solid rgba(10,26,64,0.6)' }}>{y}</div>
+                    ))}
+                    {['R','H','E'].map(h => (
+                      <div key={h} className="text-center py-1 font-black text-yellow-500 font-display" style={{ fontSize: 9, width: 22, borderLeft: '1px solid #0a1a40' }}>{h}</div>
                     ))}
                   </div>
-                ))}
+                  {[
+                    { label: 'EDUCATION', scores: ['1','1','1','1','1','–','–','–','–'], rhe: ['5','0','0'] },
+                    { label: 'CAREER',    scores: ['0','1','1','⚾','–','–','–','–','–'], rhe: ['2','7','0'] },
+                  ].map((row, ri) => (
+                    <div key={row.label} className="flex" style={{ borderTop: ri > 0 ? '1px solid rgba(10,26,64,0.5)' : undefined }}>
+                      <div className="py-1 px-1 font-black text-gray-500 font-display flex items-center" style={{ fontSize: 8, width: 86, borderRight: '1px solid #0a1a40' }}>{row.label}</div>
+                      {row.scores.map((s, i) => {
+                        const isBaseball = s === '⚾'
+                        const isActive = !isBaseball && s !== '–' && s !== '0'
+                        return (
+                          <div key={i} className="flex-1 text-center py-1 font-mono font-bold"
+                            style={{
+                              fontSize: isBaseball ? 13 : 11,
+                              borderRight: '1px solid rgba(10,26,64,0.4)',
+                              color: isBaseball ? '#94a3b8' : isActive ? '#fbbf24' : 'rgba(255,255,255,0.7)',
+                              textShadow: isActive ? '0 0 8px rgba(251,191,36,0.5)' : 'none',
+                            }}
+                            title={isBaseball ? 'Summer Baseball · Virginia (2025)' : undefined}
+                          >
+                            {s}
+                          </div>
+                        )
+                      })}
+                      {row.rhe.map((v, i) => (
+                        <div key={i} className="text-center py-1 font-mono font-bold text-white" style={{ fontSize: 11, width: 22, borderLeft: '1px solid #0a1a40' }}>{v}</div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Right panels */}
-            <div className="flex flex-col" style={{ width: PANEL_W, borderLeft: '2px solid #0a1a40' }}>
+            {/* Right panels — desktop only */}
+            <div className="hidden md:flex flex-col" style={{ width: PANEL_W, borderLeft: '2px solid #0a1a40' }}>
               {RIGHT_PANELS.map((p, i) => (
                 <div key={p.id} className="flex-1" style={{ borderTop: i > 0 ? '2px solid #0a1a40' : undefined }}>
                   <SidePanel id={p.id} label={p.label} active={active === p.id} onClick={() => setActive(p.id)} />
@@ -631,13 +645,13 @@ export default function App() {
           <GitHubStrip />
         </div>
 
-        {/* Support posts */}
-        <div className="flex justify-around px-20">
+        {/* Support posts — decorative cabinet-mount detail, desktop only */}
+        <div className="hidden md:flex justify-around px-20">
           {[0, 1].map(i => (
             <div key={i} style={{ width: 16, height: 44, background: 'linear-gradient(to right, #a1a1aa, #d4d4d8, #a1a1aa)', border: '1px solid #71717a', boxShadow: '2px 2px 8px rgba(0,0,0,0.6)' }} />
           ))}
         </div>
-        <div className="flex justify-around px-14">
+        <div className="hidden md:flex justify-around px-14">
           {[0, 1].map(i => (
             <div key={i} style={{ height: 6, width: 56, background: 'rgba(0,0,0,0.5)', borderRadius: '50%', filter: 'blur(4px)' }} />
           ))}
